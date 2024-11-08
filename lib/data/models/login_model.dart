@@ -13,23 +13,19 @@ class LoginModel {
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    if (json['data'] != null) {
-      data = UserModel.fromJson(json['data']);
-    } else {
-      data = null;
-    }
+    data = json['data'] != null ? UserModel.fromJson(json['data']) : null;
     token = json['token'];
   }
 
-// Map<String, dynamic> toJson() {
-//   final Map<String, dynamic> data = new Map<String, dynamic>();
-//   data['status'] = this.status;
-//   if (this.data != null) {
-//     data['data'] = this.data!.toJson();
-//   }
-//   data['token'] = this.token;
-//   return data;
-// }
+Map<String, dynamic> toJson() {
+  final Map<String, dynamic> data = new Map<String, dynamic>();
+  data['status'] = this.status;
+  if (this.data != null) {
+    data['data'] = this.data!.toJson();
+  }
+  data['token'] = this.token;
+  return data;
+}
 }
 
 // class UserModel {
