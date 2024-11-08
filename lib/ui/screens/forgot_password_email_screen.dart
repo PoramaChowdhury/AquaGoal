@@ -25,9 +25,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme
-        .of(context)
-        .textTheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SingleChildScrollView(
         child: ScreenBackground(
@@ -39,8 +37,8 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                 const SizedBox(height: 82),
                 Text(
                   'Your Email Address',
-                  style: textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w500),
+                  style: textTheme.titleLarge
+                      ?.copyWith(fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -97,8 +95,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
           TextSpan(
             text: 'Sign In',
             style: const TextStyle(color: AppColors.themeColor),
-            recognizer: TapGestureRecognizer()
-              ..onTap = _onTapSignIn,
+            recognizer: TapGestureRecognizer()..onTap = _onTapSignIn,
           ),
         ],
       ),
@@ -113,14 +110,8 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
 
   Future<void> _recoverEmailPassword() async {
     _inProgress = true;
-    setState(() {
-
-    });
+    setState(() {});
     String email = _emailTEController.text.trim();
-
-    // final url = '${Urls.recoverPasswordEmail}?email=${_emailTEController.text.trim()}';
-
-    // NetworkResponse response = await NetworkCaller.getRequest(url: Urls.recoverPasswordEmail);
 
     if (email.isEmpty) {
       showSnackBarMessage(
@@ -128,11 +119,8 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
 
       return;
     }
-
-    // Update the URL to include the email address as a query parameter
     final url = '${Urls.recoverPasswordEmail}$email';
 
-    // Assuming the method should be GET
     NetworkResponse response = await NetworkCaller.getRequest(url: url);
 
     _inProgress = false;
@@ -141,7 +129,10 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
     if (response.isSuccess) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (ctx) => const ForgotPasswordOtpScreen()),
+        MaterialPageRoute(
+            builder: (ctx) => const ForgotPasswordOtpScreen(
+                  email: '',
+                )),
       );
     } else {
       showSnackBarMessage(context, response.errorMessage, true);

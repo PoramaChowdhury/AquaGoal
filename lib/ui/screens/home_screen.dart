@@ -69,22 +69,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
             ),
             const SizedBox(width: 16),
-            ElevatedButton(
-              onPressed: _onTapAddWaterTrack,
-              child: const Text(
-                'Add',
-                style: TextStyle(color: Colors.blue), // Text color
+            Expanded(
+              child: ElevatedButton(
+                onPressed: _onTapAddWaterTrack,
+                child: const Text(
+                  'Add',
+                  style: TextStyle(color: Colors.blue), // Text color
+                ),
               ),
             ),
             const SizedBox(width: 16),
-            ElevatedButton(
-                onPressed: _onTapResetButton,
-                child: const Text(
-                  'Reset',
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
-                )),
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: _onTapResetButton,
+                  child: const Text(
+                    'Reset',
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  )),
+            ),
           ],
         ),
       ],

@@ -12,6 +12,8 @@ class Urls {
   static const String progressTaskList = '$_baseUrl/listTaskByStatus/Progress';
   static const String taskStatusCount = '$_baseUrl/taskStatusCount';
   static const String recoverPasswordEmail = '$_baseUrl/RecoverVerifyEmail/';
+  static  String recoverOTP (String email, String otp) => '$_baseUrl/RecoverVerifyOtp/$email/$otp';
+  static  String resetPassword (String email, String otp) => '$_baseUrl/RecoverResetPassword';
 
   static String changeStatus(String taskId, String status) =>
       '$_baseUrl/updateTaskStatus/$taskId/$status';

@@ -1,19 +1,32 @@
+import 'package:aquagoal/data/models/network_response.dart';
+import 'package:aquagoal/data/service/network_caller.dart';
+import 'package:aquagoal/ui/widgets/snack_bar_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:aquagoal/ui/screens/forgot_password_otp_screen.dart';
 import 'package:aquagoal/ui/screens/sign_in_screen.dart';
 import 'package:aquagoal/ui/utils/app_colors.dart';
 import 'package:aquagoal/ui/widgets/screen_background.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+  final String email;
+  final String otp;
+
+  const ResetPasswordScreen({
+    super.key,
+    required this.email,
+    required this.otp,
+  });
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -55,11 +68,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Column(
       children: [
         TextFormField(
-          decoration: InputDecoration(hintText: 'Password'),
+          decoration: const InputDecoration(hintText: 'Password'),
         ),
         const SizedBox(height: 8),
         TextFormField(
-          decoration: InputDecoration(hintText: 'Confirm Password'),
+          decoration: const InputDecoration(hintText: 'Confirm Password'),
         ),
         const SizedBox(height: 8),
         ElevatedButton(
@@ -94,12 +107,38 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         ]));
   }
 
-  void _onTapNextButton() {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const SignInScreen()),
-      (_) => false,
+  void _onTapNextButton() async {
+    if (_passwordController.text != _confirmPasswordController.text) {
+      showSnackBarMessage(context, 'Passwords do not match', true);
+      return;
+    }
+
+    String email = widget.email;
+    String otp = widget.otp;
+    String newPassword = _passwordController.text;
+
+    Map<String, dynamic> requestBody = {
+      "email": email,
+      "OTP": otp,
+      "password": newPassword,
+    };
+
+    NetworkResponse response = await NetworkCaller.postRequest(
+      url: 'http://35.73.30.144:2005/api/v1/RecoverResetPassword/',
+      body: requestBody,
     );
+
+    if (response.isSuccess) {
+      showSnackBarMessage(context, 'Password reset successful');
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const SignInScreen()),
+        (_) => false,
+      );
+    } else {
+      showSnackBarMessage(
+          context, response.errorMessage ?? 'Failed to reset password', true);
+    }
   }
 
   void _onTapSignIn() {
