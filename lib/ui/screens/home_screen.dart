@@ -20,10 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: const TMAppBar(
         isProfileScreenOpen: false,
-        height: 100,
+        height: 120,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: 30,
+              width: 50,
               child: TextField(
                   controller: _glassNoTEController,
                   keyboardType: TextInputType.number,
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: _onTapAddWaterTrack,
                 child: const Text(
                   'Add',
-                  style: TextStyle(color: Colors.blue), // Text color
+                  style: TextStyle(color: Colors.white), // Text color
                 ),
               ),
             ),
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const Text(
                     'Reset',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.white,
                     ),
                   )),
             ),

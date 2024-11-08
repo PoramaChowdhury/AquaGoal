@@ -39,57 +39,66 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
             borderRadius: const BorderRadius.vertical(
-              bottom: Radius.elliptical(20, 20)
+              bottom: Radius.elliptical(25, 25)
             )
           ),
         ),
+
         
-        title: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const CircleAvatar(
-                radius: 14,
-                // backgroundImage: Image.asset(''),
-                backgroundColor: Colors.white,
-              ),
-              const SizedBox(width: 16),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "PC",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'pc@gmail.com',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+        title: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  radius: 22,
+                  // backgroundImage: Image.asset(''),
+                  backgroundColor: Colors.white,
                 ),
-              ),
-              IconButton(
-                  onPressed: () async {
-                    await AuthController.clearUserData();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignInScreen()),
-                        (predicate) => false);
-                  },
-                  icon: const Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ))
-            ],
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AuthController.userData?.fullName ?? '',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                       Text(
+                        AuthController.userData?.email ?? '',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                    onPressed: () async {
+                      await AuthController.clearUserData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignInScreen()),
+                          (predicate) => false);
+                    },
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ))
+              ],
+            ),
           ),
         ),
       ),

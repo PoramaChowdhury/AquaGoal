@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aquagoal/data/models/network_response.dart';
 import 'package:aquagoal/data/models/user_model.dart';
 import 'package:aquagoal/data/service/network_caller.dart';
@@ -7,6 +9,7 @@ import 'package:aquagoal/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:aquagoal/ui/widgets/snack_bar_message.dart';
 import 'package:aquagoal/ui/widgets/tm_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -23,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  bool _updateProfileInprogress = false;
+  bool _updateProfileInProgress = false;
 
   XFile? _selectedImage;
 
@@ -117,10 +120,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const SizedBox(height: 16),
                 Visibility(
-                  visible: !_updateProfileInprogress,
+                  visible: !_updateProfileInProgress,
                   replacement: const CenteredCircularProgressIndicator(),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if(_formKey.currentState!.validate()){
+                        _updateProfile();
+                      }
+                    },
                     child: const Icon(Icons.arrow_circle_right_outlined),
                   ),
                 ),
@@ -173,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _updateProfile() async {
-    _updateProfileInprogress = true;
+    _updateProfileInProgress = true;
     setState(() {});
     Map<String, dynamic> requestBody = {
       "email": _emailTEController.text.trim(),
@@ -192,7 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     NetworkResponse response = await NetworkCaller.postRequest(
         url: Urls.updateProfile, body: requestBody);
-    _updateProfileInprogress = false;
+    _updateProfileInProgress = false;
     setState(() {});
     if (response.isSuccess) {
       UserModel userModel = UserModel.fromJson(requestBody);
