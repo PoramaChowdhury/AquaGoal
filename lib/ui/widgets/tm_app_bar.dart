@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:aquagoal/ui/controllers/auth_controller.dart';
 import 'package:aquagoal/ui/screens/profile_screen.dart';
 import 'package:aquagoal/ui/screens/sign_in_screen.dart';
-import 'package:aquagoal/ui/utils/app_colors.dart';
 
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TMAppBar({

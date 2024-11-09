@@ -11,9 +11,17 @@ class Urls {
       '$_baseUrl/listTaskByStatus/Cancelled';
   static const String progressTaskList = '$_baseUrl/listTaskByStatus/Progress';
   static const String taskStatusCount = '$_baseUrl/taskStatusCount';
-  static const String recoverPasswordEmail = '$_baseUrl/RecoverVerifyEmail/';
-  static  String recoverOTP (String email, String otp) => '$_baseUrl/RecoverVerifyOtp/$email/$otp';
-  static  String resetPassword (String email, String otp) => '$_baseUrl/RecoverResetPassword';
+  // static const String recoverPasswordEmail = '$_baseUrl/RecoverVerifyEmail';
+  static String recoverEmail(String email) =>
+      '$_baseUrl/RecoverVerifyEmail/$email';
+
+  //static  String recoverOTP (String email, String otp) => '$_baseUrl/RecoverVerifyOtp/$email/$otp';
+
+  static String otpEmail(String email, String otp) =>
+      '$_baseUrl/RecoverVerifyOtp/$email/$otp';
+
+  static String resetPassword(String email, String otp) =>
+      '$_baseUrl/RecoverResetPassword';
   static const String updateProfile = '$_baseUrl/ProfileUpdate';
 
   static String changeStatus(String taskId, String status) =>

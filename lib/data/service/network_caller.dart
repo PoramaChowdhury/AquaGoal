@@ -49,44 +49,37 @@ class NetworkCaller {
     }
   }
 
+
+
   static Future<NetworkResponse> postRequest(
       {required String url, Map<String, dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
       Map<String, String> headers = {
         'Content-Type': 'application/json',
-        'token': AuthController.accessToken.toString(),
+        'token': AuthController.accessToken.toString()
       };
-      printRequest(url, body, headers);
+      debugPrint(url);
       final Response response = await post(
         uri,
         headers: headers,
         body: jsonEncode(body),
       );
-
+      printRequest(url, body, headers);
       printResponse(url, response);
-
       if (response.statusCode == 200) {
-        final decodedData = jsonDecode(response.body);
-
-        if (decodedData['status'] == 'fail') {
-          return NetworkResponse(
-            isSuccess: false,
-            statusCode: response.statusCode,
-            errorMessage: decodedData['data'],
-          );
-        }
+        final decodeData = jsonDecode(response.body);
         return NetworkResponse(
           isSuccess: true,
           statusCode: response.statusCode,
-          responseData: decodedData,
+          responseData: decodeData,
         );
       } else if (response.statusCode == 401) {
         _moveToLogin();
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: 'Unauthenticated!',
+          errorMessage: 'Unauthenticated',
         );
       } else {
         return NetworkResponse(
