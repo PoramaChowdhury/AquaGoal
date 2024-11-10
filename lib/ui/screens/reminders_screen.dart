@@ -9,124 +9,13 @@ class RemindersScreen extends StatefulWidget {
 }
 
 class _RemindersScreenState extends State<RemindersScreen> {
-  // List to hold reminders with date and time
   List<Map<String, dynamic>> reminders = [];
 
-  // Boolean to track if reminders are enabled or not
   bool areRemindersOn = true;
 
-  // Text controller to capture input for new reminder
-  final TextEditingController _reminderController = TextEditingController();
 
-  // Function to add reminder with date and time
-  void _addReminder(DateTime selectedTime) {
-    final String reminderText = _reminderController.text.trim();
-    if (reminderText.isNotEmpty && selectedTime != null) {
-      setState(() {
-        reminders.add({
-          'text': reminderText,
-          'dateTime': selectedTime,
-        }); // Add reminder with date and time
-      });
-      _reminderController.clear(); // Clear the text field after adding
-    }
-  }
+  final TextEditingController _reminderTEController = TextEditingController();
 
-  // Function to delete a specific reminder by index
-  void _deleteReminder(int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirm Deletion'),
-          content: const Text('Are you sure you want to delete this reminder?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  reminders.removeAt(index); // Remove the reminder at that index
-                });
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Delete'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog without deleting
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Function to show date picker and time picker and return selected DateTime
-  Future<void> _selectDateTime(BuildContext context) async {
-    DateTime selectedDate = DateTime.now();
-
-    // Date Picker
-    DateTime? date = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2101),
-    );
-
-    if (date == null) return;
-
-    // Time Picker
-    TimeOfDay? time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(selectedDate),
-    );
-
-    if (time == null) return;
-    selectedDate =
-        DateTime(date.year, date.month, date.day, time.hour, time.minute);
-
-    // Now add reminder with selected date and time
-    _addReminder(selectedDate);
-  }
-
-  // Function to edit reminder text
-  void _editReminder(int index) async {
-    String? editedText = await showDialog<String>(
-      context: context,
-      builder: (context) {
-        TextEditingController controller =
-        TextEditingController(text: reminders[index]['text']);
-        return AlertDialog(
-          title: const Text('Edit Reminder'),
-          content: TextField(
-            controller: controller,
-            decoration: const InputDecoration(labelText: 'Reminder text'),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(controller.text);
-              },
-              child: const Text('Save'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Cancel
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
-
-    if (editedText != null && editedText.isNotEmpty) {
-      setState(() {
-        reminders[index]['text'] = editedText;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +65,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
               ),
             ),
             TextField(
-              controller: _reminderController,
+              controller: _reminderTEController,
               decoration: const InputDecoration(
                 labelText: 'Enter a reminder',
                 border: OutlineInputBorder(),
@@ -223,5 +112,110 @@ class _RemindersScreenState extends State<RemindersScreen> {
         ),
       ),
     );
+  }
+
+  void _addReminder(DateTime selectedTime) {
+    final String reminderText = _reminderTEController.text.trim();
+    if (reminderText.isNotEmpty && selectedTime != null) {
+      setState(() {
+        reminders.add({
+          'text': reminderText,
+          'dateTime': selectedTime,
+        });
+      });
+      _reminderTEController.clear();
+    }
+  }
+  void _deleteReminder(int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Deletion'),
+          content: const Text('Are you sure you want to delete this reminder?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  reminders.removeAt(index); // Remove the reminder at that index
+                });
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Delete'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog without deleting
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _selectDateTime(BuildContext context) async {
+    DateTime selectedDate = DateTime.now();
+
+    // Date Picker
+    DateTime? date = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2101),
+    );
+
+    if (date == null) return;
+
+    // Time Picker
+    TimeOfDay? time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(selectedDate),
+    );
+
+    if (time == null) return;
+    selectedDate =
+        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+
+    // Now add reminder with selected date and time
+    _addReminder(selectedDate);
+  }
+
+  void _editReminder(int index) async {
+    String? editedText = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        TextEditingController controller =
+        TextEditingController(text: reminders[index]['text']);
+        return AlertDialog(
+          title: const Text('Edit Reminder'),
+          content: TextField(
+            controller: controller,
+            decoration: const InputDecoration(labelText: 'Reminder text'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(controller.text);
+              },
+              child: const Text('Save'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Cancel
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (editedText != null && editedText.isNotEmpty) {
+      setState(() {
+        reminders[index]['text'] = editedText;
+      });
+    }
   }
 }
