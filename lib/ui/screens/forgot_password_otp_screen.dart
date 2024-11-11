@@ -180,9 +180,11 @@ import 'package:aquagoal/ui/screens/reset_password_screen.dart';
 import 'package:aquagoal/ui/screens/sign_in_screen.dart';
 import 'package:aquagoal/ui/utils/app_colors.dart';
 import 'package:aquagoal/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:aquagoal/ui/widgets/screen_background.dart';
 import 'package:aquagoal/ui/widgets/snack_bar_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class ForgotPasswordOtpScreen extends StatefulWidget {
@@ -204,37 +206,41 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 84,
-              ),
-              Text(
-                'Pin Verification  ',
-                style: textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.w500,
+        child: ScreenBackground(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 84,
                 ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                'A 6 digit verification otp will be sent to your email address',
-                style: textTheme.titleSmall?.copyWith(color: Colors.grey),
-              ),
-              const SizedBox(
-                height: 23,
-              ),
-              _buildVerifyEmail(),
-              const SizedBox(
-                height: 47,
-              ),
-              Center(child: _buildHaveAccountSection()),
-            ],
+                Text(
+                  'Pin Verification  ',
+                  style: GoogleFonts.montserrat(
+                    textStyle: textTheme.displaySmall?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  'A 6 digit verification otp will be sent to your email address',
+                  style: textTheme.titleSmall?.copyWith(color: Colors.grey),
+                ),
+                const SizedBox(
+                  height: 23,
+                ),
+                _buildVerifyEmail(),
+                const SizedBox(
+                  height: 47,
+                ),
+                Center(child: _buildHaveAccountSection()),
+              ],
+            ),
           ),
         ),
       ),
@@ -271,8 +277,12 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
           replacement: const CenteredCircularProgressIndicator(),
           child: ElevatedButton(
             onPressed: _onTapNextButton,
-            child: const Icon(
-              Icons.arrow_circle_right_outlined,
+            child: const Text(
+              'Continue',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WaterTrackCounter extends StatelessWidget {
   final TextEditingController glassNoTEController;
@@ -15,9 +16,9 @@ class WaterTrackCounter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
+        Text(
           'Total Glasses', // Placeholder for total count in HomeScreen
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
               fontSize: 30, fontWeight: FontWeight.w600, color: Colors.teal
           ),
         ),

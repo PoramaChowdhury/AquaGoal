@@ -169,12 +169,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
-          height: 120,
+          height: 200,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.purpleAccent,
                   Colors.indigoAccent.shade100,
+                  Colors.purpleAccent.shade100,
                 ],
               ),
               borderRadius: const BorderRadius.vertical(

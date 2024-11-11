@@ -33,8 +33,8 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.purpleAccent,
                 Colors.indigoAccent.shade100,
+                Colors.purpleAccent.shade100,
               ],
             ),
             borderRadius: const BorderRadius.vertical(

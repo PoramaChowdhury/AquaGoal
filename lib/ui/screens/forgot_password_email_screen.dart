@@ -149,10 +149,11 @@ import 'package:aquagoal/data/service/network_caller.dart';
 import 'package:aquagoal/data/utils/urls.dart';
 import 'package:aquagoal/ui/screens/forgot_password_otp_screen.dart';
 import 'package:aquagoal/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:aquagoal/ui/widgets/screen_background.dart';
 import 'package:aquagoal/ui/widgets/snack_bar_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPasswordEmailScreen extends StatefulWidget {
   const ForgotPasswordEmailScreen({super.key});
@@ -171,6 +172,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SingleChildScrollView(
+        child: ScreenBackground(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
@@ -181,9 +183,12 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                   height: 84,
                 ),
                 Text(
-                  'Your Email Address ',
-                  style: textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.w500,
+                  'Enter Your Email',
+                  style: GoogleFonts.montserrat(
+                    textStyle: textTheme.displaySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 26,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -205,7 +210,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
             ),
           ),
         ),
-
+      ),
     );
   }
 
@@ -225,8 +230,12 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
           replacement: const CenteredCircularProgressIndicator(),
           child: ElevatedButton(
             onPressed: _onTapNextButton,
-            child: const Icon(
-              Icons.arrow_circle_right_outlined,
+            child: const Text(
+              'Continue',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
             ),
           ),
         ),
@@ -262,8 +271,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
 
     // Validate the email format
     if (email.isEmpty) {
-
-      showSnackBarMessage(context, 'Please enter a valid email address',true);
+      showSnackBarMessage(context, 'Please enter a valid email address', true);
       return;
     }
 
@@ -280,7 +288,10 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
     if (response.isSuccess) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ForgotPasswordOtpScreen(email: email,)),
+        MaterialPageRoute(
+            builder: (context) => ForgotPasswordOtpScreen(
+                  email: email,
+                )),
       );
     } else {
       showSnackBarMessage(context, response.errorMessage, true);

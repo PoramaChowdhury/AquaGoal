@@ -5,7 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:aquagoal/ui/screens/sign_in_screen.dart';
-import 'package:aquagoal/ui/utils/app_colors.dart';
 import 'package:aquagoal/ui/widgets/screen_background.dart';
 
 // class ResetPasswordScreen extends StatefulWidget {
@@ -166,7 +165,8 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -174,6 +174,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
     return Scaffold(
       body: SingleChildScrollView(
+        child: ScreenBackground(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
@@ -183,14 +184,23 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 const SizedBox(height: 84),
                 Text(
                   'Set password',
-                  style: textTheme.displaySmall?.copyWith(
+                  style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                    fontFamily: GoogleFonts.lato().fontFamily,
                     fontWeight: FontWeight.w500,
-                  ),
+                    fontSize:
+                        Theme.of(context).textTheme.displaySmall?.fontSize,
+                    letterSpacing:
+                        Theme.of(context).textTheme.displaySmall?.letterSpacing,
+                    height: Theme.of(context).textTheme.displaySmall?.height,
+                  )),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Minimum password length should be 8 characters',
-                  style: textTheme.titleSmall?.copyWith(color: Colors.grey),
+                  style: GoogleFonts.lato(
+                      textStyle:
+                          textTheme.titleSmall?.copyWith(color: Colors.grey)),
                 ),
                 const SizedBox(height: 23),
                 _buildResetPasswordForm(),
@@ -200,7 +210,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
           ),
         ),
-
+      ),
     );
   }
 
@@ -210,14 +220,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         TextField(
           controller: _passwordController,
           keyboardType: TextInputType.visiblePassword,
-
           decoration: const InputDecoration(hintText: 'Password'),
         ),
         SizedBox(height: 8),
         TextField(
           controller: _confirmPasswordController,
           keyboardType: TextInputType.visiblePassword,
-
           decoration: const InputDecoration(hintText: 'Confirm password'),
         ),
         const SizedBox(height: 20),
@@ -278,10 +286,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => SignInScreen()),
-            (_) => false,
+        (_) => false,
       );
     } else {
-      showSnackBarMessage(context, response.errorMessage ?? 'Failed to reset password', true);
+      showSnackBarMessage(
+          context, response.errorMessage ?? 'Failed to reset password', true);
     }
   }
 
@@ -289,7 +298,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => SignInScreen()),
-          (_) => false,
+      (_) => false,
     );
   }
 }

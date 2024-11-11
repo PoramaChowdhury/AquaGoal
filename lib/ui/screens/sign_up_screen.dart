@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,8 +24,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _lastNameTEController = TextEditingController();
   final TextEditingController _mobileTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
+  ///not validate
+  final TextEditingController _confirmPasswordTEController = TextEditingController();
+
 
   bool _inProgress = false;
+
+  /// added
+  bool _isTermsAccepted = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +48,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: [
               const SizedBox(height: 82),
               Text(
-                'Join with Us',
-                style:
-                    textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+                'Create Your Profile',
+                style: GoogleFonts.montserrat(
+                    textStyle: Theme.of(context).textTheme.headlineMedium,
+                    fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 24),
               _buildSignUpForm(),
@@ -129,6 +135,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
               return null;
             },
           ),
+
+          const SizedBox(height: 8),
+
+          TextFormField(
+            controller: _confirmPasswordTEController,
+            obscureText: false,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: const InputDecoration(
+              hintText: 'Confirm Password',
+            ),
+            validator: (String? value) {
+              if (value?.isEmpty ?? true) {
+                return "Enter your password";
+              }
+              return null;
+            },
+          ),
+
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Checkbox(
+                value: _isTermsAccepted,
+                onChanged: (bool? newValue) {
+                  setState(() {
+                    _isTermsAccepted = newValue!;
+                  });
+                },
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _isTermsAccepted = !_isTermsAccepted;
+                  });
+                },
+                child: Text(
+                  'I accept the Terms and Conditions',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.green.withOpacity(0.9),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 24),
           Visibility(
             visible: !_inProgress,
@@ -137,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onPressed: () {
                   _onTapNextButton();
                 },
-                child: const Icon(Icons.arrow_circle_right_outlined)),
+                child: const Text('Create Account',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),)),
           ),
         ],
       ),
@@ -148,7 +200,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return RichText(
         text: TextSpan(
             text: "Have an account? ",
-            style: GoogleFonts.italiana(  // Apply Google Font to the first part of the text
+            style: GoogleFonts.italiana(
               color: Colors.black,
               fontWeight: FontWeight.w600,
               fontSize: 16,
@@ -157,7 +209,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: [
           TextSpan(
             text: 'Sign In',
-            style: GoogleFonts.italiana(  // Apply Google Font to the second part (Sign In)
+            style: GoogleFonts.italiana(
+              // Apply Google Font to the second part (Sign In)
               color: AppColors.themeColor,
               fontWeight: FontWeight.w600,
               fontSize: 16,
@@ -168,7 +221,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _onTapNextButton() {
-    if (_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       _signUp();
     }
   }
@@ -178,22 +231,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {});
 
     Map<String, dynamic> requestBody = {
-      "email":_emailTEController.text.trim(),
-      "firstName":_firstNameTEController.text.trim(),
-      "lastName":_lastNameTEController.text.trim(),
-      "mobile":_mobileTEController.text.trim(),
-      "password":_passwordTEController.text,
-      "photo":""
+      "email": _emailTEController.text.trim(),
+      "firstName": _firstNameTEController.text.trim(),
+      "lastName": _lastNameTEController.text.trim(),
+      "mobile": _mobileTEController.text.trim(),
+      "password": _passwordTEController.text,
+      "photo": ""
     };
-    NetworkResponse response =
-        await NetworkCaller.postRequest(
-          url: Urls.registration,
-          body: requestBody,
-        );
+    NetworkResponse response = await NetworkCaller.postRequest(
+      url: Urls.registration,
+      body: requestBody,
+    );
 
     _inProgress = false;
     setState(() {});
-
 
     if (response.isSuccess) {
       _clearTextFields();

@@ -6,9 +6,11 @@ import 'package:aquagoal/data/service/network_caller.dart';
 import 'package:aquagoal/data/utils/urls.dart';
 import 'package:aquagoal/ui/controllers/auth_controller.dart';
 import 'package:aquagoal/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:aquagoal/ui/widgets/screen_background.dart';
 import 'package:aquagoal/ui/widgets/snack_bar_message.dart';
 import 'package:aquagoal/ui/widgets/tm_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -42,97 +44,106 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _lastNameTEController.text = AuthController.userData?.lastName ?? '';
     _phoneTEController.text = AuthController.userData?.mobile ?? '';
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TMAppBar(
-        isProfileScreenOpen: true,
-      ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 48),
-                Text(
-                  'Update profile',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 32),
-                _buildPhotoPicker(),
-                const SizedBox(height: 16),
-                TextFormField(
-                  enabled:  false,
-                  controller: _emailTEController,
-                  decoration: const InputDecoration(hintText: 'Email'),
-                  validator: (String ?value){
-                    if (value?.trim().isEmpty??true){
-                      return 'Enter your valid email';
-                    }
-                    return null;
-                  } ,
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: _firstNameTEController,
-                  decoration: const InputDecoration(hintText: 'First Name'),
-                  validator: (String ?value){
-                    if (value?.trim().isEmpty??true){
-                      return 'Enter your valid First Name';
-                    }
-                    return null;
-                  } ,
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: _lastNameTEController,
-                  decoration: const InputDecoration(hintText: 'Last Name'),
-                  validator: (String ?value){
-                    if (value?.trim().isEmpty??true){
-                      return 'Enter your valid last name';
-                    }
-                    return null;
-                  } ,
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: _phoneTEController,
-                  decoration: const InputDecoration(hintText: 'Phone'),
-                  validator: (String ?value){
-                    if (value?.trim().isEmpty??true){
-                      return 'Enter your valid phone';
-                    }
-                    return null;
-                  } ,
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: _passwordTEController,
-                  decoration: const InputDecoration(
-                    hintText: "Password",
+        child: ScreenBackground(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 48),
+                  Text(
+                    'Update Your Profile',
+                    style: GoogleFonts.montserrat(
+                      textStyle:
+                          Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 24,
+                              ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                Visibility(
-                  visible: !_updateProfileInProgress,
-                  replacement: const CenteredCircularProgressIndicator(),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()){
-                        _updateProfile();
+                  const SizedBox(height: 32),
+                  _buildPhotoPicker(),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    enabled: false,
+                    controller: _emailTEController,
+                    decoration: const InputDecoration(hintText: 'Email'),
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter your valid email';
                       }
+                      return null;
                     },
-                    child: const Icon(Icons.arrow_circle_right_outlined),
                   ),
-                ),
-                const SizedBox(height: 16),
-              ],
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: _firstNameTEController,
+                    decoration: const InputDecoration(hintText: 'First Name'),
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter your valid First Name';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: _lastNameTEController,
+                    decoration: const InputDecoration(hintText: 'Last Name'),
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter your valid last name';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: _phoneTEController,
+                    decoration: const InputDecoration(hintText: 'Phone'),
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter your valid phone';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: _passwordTEController,
+                    decoration: const InputDecoration(
+                      hintText: "Password",
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Visibility(
+                    visible: !_updateProfileInProgress,
+                    replacement: const CenteredCircularProgressIndicator(),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _updateProfile();
+                        }
+                      },
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
             ),
           ),
         ),
@@ -220,7 +231,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _pickedImage() async {
     final ImagePicker imagePicker = ImagePicker();
     final XFile? pickedImage =
-    await imagePicker.pickImage(source: ImageSource.gallery);
+        await imagePicker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       _selectedImage = pickedImage;
       setState(() {});

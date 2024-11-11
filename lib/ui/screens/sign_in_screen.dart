@@ -26,6 +26,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
   bool _inProgress = false;
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +42,8 @@ class _SignInScreenState extends State<SignInScreen> {
             children: [
               const SizedBox(height: 82),
               Text(
-                'Get Started With',
-                style:
-                    textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+                'Unlock Your Journey',
+                style: GoogleFonts.montserrat(textStyle: Theme.of(context).textTheme.headlineMedium,fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 24),
               _buildSignInForm(),
@@ -95,10 +95,21 @@ class _SignInScreenState extends State<SignInScreen> {
           TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: _passwordTEController,
-            obscureText: true,
-
-            ///hiding password
-            decoration: InputDecoration(hintText: 'Pasword'),
+            obscureText: _obscureText,  ///hiding password
+            decoration:  InputDecoration(
+              hintText: 'Password',
+              suffixIcon: IconButton(
+                  onPressed: (){
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                  icon: Icon(
+                    _obscureText ? Icons.visibility_off : Icons.visibility,
+                  ),
+              ),
+              
+            ),
             validator: (String? value) {
               if (value?.isEmpty ?? true) {
                 return 'Enter a your password';

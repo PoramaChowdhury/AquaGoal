@@ -1,5 +1,3 @@
-
-
 import 'package:aquagoal/ui/controllers/goal_manager.dart';
 import 'package:aquagoal/ui/controllers/water_track_controller.dart';
 import 'package:aquagoal/ui/widgets/water_track_counter.dart';
@@ -9,8 +7,6 @@ import 'package:aquagoal/ui/screens/settings_screen.dart';
 import 'package:aquagoal/ui/screens/reminders_screen.dart';
 import 'package:aquagoal/ui/widgets/tm_app_bar.dart';
 import 'package:aquagoal/ui/widgets/water_progress_bar.dart';
-
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,7 +18,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final WaterTrackController _waterTrackController = WaterTrackController();
   final GoalManager _goalManager = GoalManager();
-  final TextEditingController _glassNoTEController = TextEditingController(text: '1');
+  final TextEditingController _glassNoTEController =
+      TextEditingController(text: '1');
   int _currentIndex = 0;
 
   @override
@@ -30,8 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _loadGoal();
   }
-
-  // Load goal from SharedPreferences
   _loadGoal() async {
     await _goalManager.loadGoal();
     setState(() {});
@@ -51,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onReset: _onResetWaterTrack,
             ),
             const SizedBox(height: 24),
-            WaterProgressBar(waterTrackList: _waterTrackController.waterTrackList, goal: _goalManager.goal),
+            WaterProgressBar(
+                waterTrackList: _waterTrackController.waterTrackList,
+                goal: _goalManager.goal),
             const SizedBox(height: 24),
             Expanded(
               child: WaterTrackListView(
