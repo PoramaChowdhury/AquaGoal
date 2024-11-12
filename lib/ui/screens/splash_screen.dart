@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:aquagoal/ui/screens/sign_in_screen.dart';
 import 'package:aquagoal/ui/utils/assets_path.dart';
 import 'package:aquagoal/ui/widgets/screen_background.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _moveToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 4));
     await AuthController.getAccessToken();
     if (AuthController.isLoggedIn()) {
       await AuthController.getUserData();
@@ -44,16 +45,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScreenBackground(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(AssetsPath.logoSvg, width: 120),
-            ],
+      body: Stack(children: [
+        ScreenBackground(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(AssetsPath.splash, width: 250),
+                Text(''),
+              ],
+            ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }

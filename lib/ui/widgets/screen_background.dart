@@ -14,14 +14,22 @@ class ScreenBackground extends StatelessWidget {
     ///stack ekta jinishke arektar upre rkahe perfectly
     return Stack(
       children: [
-        SvgPicture.asset(
+        /*SvgPicture.asset(
           AssetsPath.backgroundSvg,
           fit: BoxFit.cover,
 
           height:screenSize.height,
           width: screenSize.width,
+        ),*/
+        Image.asset(
+          AssetsPath.background,
+          fit: BoxFit.cover,
+          height: screenSize.height,
+          width: screenSize.width,
         ),
-        SafeArea(child: child), ///SafeArea used as this widget is not hide over anything like notification bar ....
+        SafeArea(child: child),
+
+        ///SafeArea used as this widget is not hide over anything like notification bar ....
       ],
     );
   }

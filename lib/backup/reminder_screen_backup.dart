@@ -83,13 +83,31 @@ class _RemindersScreenState extends State<RemindersScreen> {
               child: ListView.builder(
                 itemCount: reminders.length,
                 itemBuilder: (context, index) {
-                  final reminder = reminders[index];
-                  return ReminderTile(
-                    reminderText: reminder['text'],
-                    reminderDateTime: reminder['dateTime'],
-                    onDelete: () => _deleteReminder(index),
-                    onEdit: () => _editReminder(index),
+                  DateTime reminderTime = reminders[index]['dateTime'];
+                  return ListTile(
+                    title: Text(reminders[index]['text']),
+                    subtitle: Text(
+                      '${reminderTime.day}/${reminderTime.month}/${reminderTime.year} at ${reminderTime.hour}:${reminderTime.minute.toString().padLeft(2, '0')}',
+                    ), // Display formatted date and time
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Edit Button
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                          onPressed: () =>
+                              _editReminder(index), // Edit reminder
+                        ),
+                        // Delete Button
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () =>
+                              _deleteReminder(index), // Delete reminder
+                        ),
+                      ],
+                    ),
                   );
+
                 },
               ),
             ),
@@ -123,15 +141,17 @@ class _RemindersScreenState extends State<RemindersScreen> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  reminders.removeAt(index); // Remove the reminder at that index
+                  reminders
+                      .removeAt(index); // Remove the reminder at that index
                 });
-                Navigator.pop(context); // Close the dialog
+                Navigator.of(context).pop(); // Close the dialog
               },
               child: const Text('Delete'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog without deleting
+                Navigator.of(context)
+                    .pop(); // Close the dialog without deleting
               },
               child: const Text('Cancel'),
             ),
@@ -144,18 +164,61 @@ class _RemindersScreenState extends State<RemindersScreen> {
   Future<void> _selectDateTime(BuildContext context) async {
     DateTime selectedDate = DateTime.now();
 
+    // Date Picker
     DateTime? date = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(2020),
       lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            primaryColor: Colors.purple, // Changes the color of the header and selected date
+            hintColor: Colors.indigo,  // Changes the color of the selected date circle
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary, // Button text color
+              colorScheme: ColorScheme.light(primary: Colors.purple), // Button color
+            ),
+            textTheme: const TextTheme(
+              titleLarge: TextStyle(
+                color: Colors.indigo, // Change the text color in the header
+                fontSize: 18, // Change the font size of the header
+              ),
+              bodyMedium: TextStyle(
+                color: Colors.black, // Change the color of the day numbers
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
+
     if (date == null) return;
 
     // Time Picker
     TimeOfDay? time = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(selectedDate),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            primaryColor: Colors.purple, // Changes the color of the selected time's circle
+            hintColor: Colors.indigo,  // Changes the color of the "AM/PM" button and other elements
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary, // Button text color
+              colorScheme: ColorScheme.light(primary: Colors.purple), // Button color
+            ),
+            textTheme: const TextTheme(
+              titleLarge: TextStyle(
+                color: Colors.indigo, // Changes the color of the time label (e.g., '3:30 PM')
+                fontSize: 24, // Font size of the time label
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (time == null) return;
@@ -171,7 +234,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
       context: context,
       builder: (context) {
         TextEditingController controller =
-            TextEditingController(text: reminders[index]['text']);
+        TextEditingController(text: reminders[index]['text']);
         return AlertDialog(
           title: const Text('Edit Reminder'),
           content: TextField(
@@ -187,7 +250,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Cancel
+                Navigator.of(context).pop(); // Cancel
               },
               child: const Text('Cancel'),
             ),
@@ -203,3 +266,4 @@ class _RemindersScreenState extends State<RemindersScreen> {
     }
   }
 }
+
