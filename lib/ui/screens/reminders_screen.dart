@@ -1,3 +1,4 @@
+import 'package:aquagoal/ui/widgets/reminder_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,9 +14,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
 
   bool areRemindersOn = true;
 
-
   final TextEditingController _reminderTEController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +73,8 @@ class _RemindersScreenState extends State<RemindersScreen> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => _selectDateTime(context),
-              child: const Text('Set Date & Time for Reminder', style: TextStyle(fontSize: 17)),
+              child: const Text('Set Date & Time for Reminder',
+                  style: TextStyle(fontSize: 17)),
             ),
             const SizedBox(height: 16),
 
@@ -83,7 +83,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
               child: ListView.builder(
                 itemCount: reminders.length,
                 itemBuilder: (context, index) {
-                  DateTime reminderTime = reminders[index]['dateTime'];
+                  /*DateTime reminderTime = reminders[index]['dateTime'];
                   return ListTile(
                     title: Text(reminders[index]['text']),
                     subtitle: Text(
@@ -95,15 +95,24 @@ class _RemindersScreenState extends State<RemindersScreen> {
                         // Edit Button
                         IconButton(
                           icon: const Icon(Icons.edit, color: Colors.blue),
-                          onPressed: () => _editReminder(index), // Edit reminder
+                          onPressed: () =>
+                              _editReminder(index), // Edit reminder
                         ),
                         // Delete Button
                         IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () => _deleteReminder(index), // Delete reminder
+                          onPressed: () =>
+                              _deleteReminder(index), // Delete reminder
                         ),
                       ],
                     ),
+                  );*/
+                  final reminder = reminders[index];
+                  return ReminderTile(
+                    reminderText: reminder['text'],
+                    reminderDateTime: reminder['dateTime'],
+                    onDelete: () => _deleteReminder(index),
+                    onEdit: () => _editReminder(index),
                   );
                 },
               ),
@@ -126,6 +135,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
       _reminderTEController.clear();
     }
   }
+
   void _deleteReminder(int index) {
     showDialog(
       context: context,
@@ -137,7 +147,8 @@ class _RemindersScreenState extends State<RemindersScreen> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  reminders.removeAt(index); // Remove the reminder at that index
+                  reminders
+                      .removeAt(index); // Remove the reminder at that index
                 });
                 Navigator.of(context).pop(); // Close the dialog
               },
@@ -145,7 +156,8 @@ class _RemindersScreenState extends State<RemindersScreen> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog without deleting
+                Navigator.of(context)
+                    .pop(); // Close the dialog without deleting
               },
               child: const Text('Cancel'),
             ),
@@ -164,6 +176,28 @@ class _RemindersScreenState extends State<RemindersScreen> {
       initialDate: selectedDate,
       firstDate: DateTime(2020),
       lastDate: DateTime(2101),
+      /*builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            primaryColor: Colors.purple, // Changes the color of the header and selected date
+            hintColor: Colors.indigo,  // Changes the color of the selected date circle
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary, // Button text color
+              colorScheme: ColorScheme.light(primary: Colors.purple), // Button color
+            ),
+            textTheme: const TextTheme(
+              titleLarge: TextStyle(
+                color: Colors.indigo, // Change the text color in the header
+                fontSize: 18, // Change the font size of the header
+              ),
+              bodyMedium: TextStyle(
+                color: Colors.black, // Change the color of the day numbers
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },*/
     );
 
     if (date == null) return;
@@ -172,6 +206,27 @@ class _RemindersScreenState extends State<RemindersScreen> {
     TimeOfDay? time = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(selectedDate),
+/*
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            primaryColor: Colors.purple, // Changes the color of the selected time's circle
+            hintColor: Colors.indigo,  // Changes the color of the "AM/PM" button and other elements
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary, // Button text color
+              colorScheme: ColorScheme.light(primary: Colors.purple), // Button color
+            ),
+            textTheme: const TextTheme(
+              titleLarge: TextStyle(
+                color: Colors.indigo, // Changes the color of the time label (e.g., '3:30 PM')
+                fontSize: 24, // Font size of the time label
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+*/
     );
 
     if (time == null) return;
@@ -187,7 +242,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
       context: context,
       builder: (context) {
         TextEditingController controller =
-        TextEditingController(text: reminders[index]['text']);
+            TextEditingController(text: reminders[index]['text']);
         return AlertDialog(
           title: const Text('Edit Reminder'),
           content: TextField(
@@ -219,3 +274,4 @@ class _RemindersScreenState extends State<RemindersScreen> {
     }
   }
 }
+
