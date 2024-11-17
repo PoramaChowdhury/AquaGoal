@@ -48,6 +48,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const TMAppBar(
+        isProfileScreenOpen: true,
+      ),
       body: SingleChildScrollView(
         child: ScreenBackground(
           child: Padding(

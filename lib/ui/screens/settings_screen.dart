@@ -131,7 +131,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _loadSettings();
   }
 
-  // Load the saved settings from SharedPreferences
   _loadSettings() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -143,17 +142,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
 
-  // Save the settings to SharedPreferences
   _saveSettings() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     int goal = int.tryParse(_goalController.text) ?? 8;
 
-    // Save goal as an integer (make sure it's saved as an int)
     await prefs.setInt('goal', goal);
     await prefs.setString('weight', _weightController.text);
     await prefs.setString('gender', _gender);
 
-    // Return the updated goal back to HomeScreen
     Navigator.pop(context, goal);
 
     ScaffoldMessenger.of(context).showSnackBar(
