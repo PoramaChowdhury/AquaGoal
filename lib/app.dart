@@ -33,19 +33,12 @@ class _MyAppState extends State<MyApp> {
   ElevatedButtonThemeData _elevatedButtonThemeData() {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.indigo.withOpacity(0.7),
-        // Slightly lighter color
+        backgroundColor: Colors.purple.withOpacity(0.7),
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         fixedSize: const Size.fromWidth(double.maxFinite),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        elevation: 6,
-        // Slightly lower elevation for softer shadow
-        side: BorderSide(color: Colors.indigo.withOpacity(0.2), width: 1),
-        splashFactory: InkSplash.splashFactory,
-        iconColor: Colors.white, // Ensure icon color is visible
+        shape:const  StadiumBorder(),
+        elevation: 2,
       ),
     );
   }
@@ -53,11 +46,11 @@ class _MyAppState extends State<MyApp> {
 
   InputDecorationTheme _inputDecorationTheme() {
     return InputDecorationTheme(
-      hintStyle: GoogleFonts.italiana(  // Use Google Fonts for hint style
+      hintStyle: GoogleFonts.italiana(
         fontWeight: FontWeight.w500,
-        color: Colors.grey,
+        color: Colors.black45,
       ),
-      fillColor: AppColors.fillColor,  // Use the custom fill color
+      fillColor: AppColors.fillColor,
       filled: true,
       border: _inputBorder(),
       enabledBorder: _enabledBorder(),
@@ -77,7 +70,7 @@ class _MyAppState extends State<MyApp> {
   OutlineInputBorder _enabledBorder() {
     return OutlineInputBorder(
       borderSide: const BorderSide(
-        color: AppColors.enabledBorderColor, // Lighter color when enabled
+        color: AppColors.enabledBorderColor,
         width: 1.5,
       ),
       borderRadius: BorderRadius.circular(8),
@@ -87,7 +80,7 @@ class _MyAppState extends State<MyApp> {
   OutlineInputBorder _focusedBorder() {
     return OutlineInputBorder(
       borderSide: const BorderSide(
-        color: AppColors.focusedBorderColor, // Darker color when focused
+        color: AppColors.focusedBorderColor,
         width: 2,
       ),
       borderRadius: BorderRadius.circular(8),
@@ -97,7 +90,7 @@ class _MyAppState extends State<MyApp> {
   OutlineInputBorder _errorBorder() {
     return OutlineInputBorder(
       borderSide: const BorderSide(
-        color: AppColors.errorBorderColor, // Red color when error occurs
+        color: AppColors.errorBorderColor,
         width: 1.5,
       ),
       borderRadius: BorderRadius.circular(8),
@@ -107,7 +100,7 @@ class _MyAppState extends State<MyApp> {
   OutlineInputBorder _focusedErrorBorder() {
     return OutlineInputBorder(
       borderSide: const BorderSide(
-        color: AppColors.errorBorderColor, // Red color when focused with error
+        color: AppColors.errorBorderColor,
         width: 2,
       ),
       borderRadius: BorderRadius.circular(8),

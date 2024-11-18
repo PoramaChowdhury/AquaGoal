@@ -43,7 +43,9 @@ class _SignInScreenState extends State<SignInScreen> {
               const SizedBox(height: 82),
               Text(
                 'Unlock Your Journey',
-                style: GoogleFonts.montserrat(textStyle: Theme.of(context).textTheme.headlineMedium,fontWeight: FontWeight.w600),
+                style: GoogleFonts.montserrat(
+                    textStyle: Theme.of(context).textTheme.headlineMedium,
+                    fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 24),
               _buildSignInForm(),
@@ -56,11 +58,11 @@ class _SignInScreenState extends State<SignInScreen> {
                           _onTapForgotPasswordButton();
                         },
                         child: Text(
-                          'Forget Password?',
+                          'Forget Password!',
                           style: GoogleFonts.italiana(
                             fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            color: Colors.teal,
+                            fontSize: 17,
+                            color: Colors.teal.shade700,
                           ),
                         )),
                     _buildSignUpSection(),
@@ -95,20 +97,21 @@ class _SignInScreenState extends State<SignInScreen> {
           TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: _passwordTEController,
-            obscureText: _obscureText,  ///hiding password
-            decoration:  InputDecoration(
+            obscureText: _obscureText,
+
+            ///hiding password
+            decoration: InputDecoration(
               hintText: 'Password',
               suffixIcon: IconButton(
-                  onPressed: (){
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                  icon: Icon(
-                    _obscureText ? Icons.visibility_off : Icons.visibility,
-                  ),
+                onPressed: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+                icon: Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                ),
               ),
-              
             ),
             validator: (String? value) {
               if (value?.isEmpty ?? true) {
@@ -126,7 +129,13 @@ class _SignInScreenState extends State<SignInScreen> {
             replacement: const CenteredCircularProgressIndicator(),
             child: ElevatedButton(
                 onPressed: _onTapNextButton,
-                child: const Icon(Icons.arrow_circle_right_outlined)),
+                child: Text(
+                  'Sign In',
+                  style: GoogleFonts.italiana(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                )),
           ),
         ],
       ),
@@ -137,7 +146,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return RichText(
         text: TextSpan(
             text: "Don't have an account? ",
-            style:GoogleFonts.italiana(
+            style: GoogleFonts.italiana(
               color: Colors.black,
               fontWeight: FontWeight.w600,
               fontSize: 15,
@@ -159,7 +168,6 @@ class _SignInScreenState extends State<SignInScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-
     _signIn();
   }
 
@@ -179,10 +187,10 @@ class _SignInScreenState extends State<SignInScreen> {
     _inProgress = false;
     setState(() {});
     if (response.isSuccess) {
-      
       LoginModel loginModel = LoginModel.fromJson(response.responseData);
 
-      await AuthController.saveAccessToken(loginModel.token!);  //TODO: why use 'token!' check
+      await AuthController.saveAccessToken(
+          loginModel.token!); //TODO: why use 'token!' check
       await AuthController.saveUserData(loginModel.data!);
       Navigator.pushAndRemoveUntil(
         context,

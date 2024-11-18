@@ -1,5 +1,3 @@
-
-
 import 'package:aquagoal/data/models/network_response.dart';
 import 'package:aquagoal/data/service/network_caller.dart';
 import 'package:aquagoal/data/utils/urls.dart';
@@ -139,11 +137,6 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
       ),
     );
   }
-
-  // void _onTapNextButton() {
-  //   Navigator.push(context,
-  //       MaterialPageRoute(builder: (context) => ResetPasswordScreen()));
-  // }
 
   void _onTapNextButton() async {
     String otp = _otpController.text.trim();

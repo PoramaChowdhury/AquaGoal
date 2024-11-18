@@ -199,7 +199,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget _buildHaveAccountSection() {
     return RichText(
         text: TextSpan(
-            text: "Have an account? ",
+            text: "Already have an account? ",
             style: GoogleFonts.italiana(
               color: Colors.black,
               fontWeight: FontWeight.w600,
@@ -260,6 +260,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _lastNameTEController.clear();
     _mobileTEController.clear();
     _passwordTEController.clear();
+    _confirmPasswordTEController.clear();
   }
 
   void _onTapSignIn() {

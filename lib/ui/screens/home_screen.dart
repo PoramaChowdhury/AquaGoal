@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TMAppBar(isProfileScreenOpen: false, height: 120),
+      appBar: const TMAppBar(isProfileScreenOpen: false, height: 100),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -62,6 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onNavBarTapped,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.green,
+        backgroundColor: Colors.white,
+        elevation: 5,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

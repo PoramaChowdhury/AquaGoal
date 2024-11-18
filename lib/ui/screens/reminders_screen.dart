@@ -20,12 +20,12 @@ class _RemindersScreenState extends State<RemindersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         flexibleSpace: Container(
-          height: 150,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.indigoAccent.shade100,
+                Colors.red.shade200,
                 Colors.purpleAccent.shade100,
               ],
             ),
@@ -35,7 +35,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
           ),
         ),
         title: const Text(
-          'Reminders',
+          'Reminder Screen',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -44,14 +44,14 @@ class _RemindersScreenState extends State<RemindersScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            /*Flexible(
               child: SwitchListTile(
                 title: Text(
                   'Reminders On/Off',
                   style: GoogleFonts.italiana(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
-                    fontSize: 24,
+                    fontSize: 22,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -62,7 +62,41 @@ class _RemindersScreenState extends State<RemindersScreen> {
                   });
                 },
               ),
+            ),*/
+            Flexible(
+              child: SwitchListTile(
+                title: RichText(
+                  text: TextSpan(
+                    style: GoogleFonts.italiana(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22,
+                      letterSpacing: 0.5,
+                    ),
+                    children: [
+                      const TextSpan(
+                        text: 'Reminders ',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      TextSpan(
+                        text: areRemindersOn ? 'ON' : 'OFF',
+                        style: TextStyle(
+                          color: areRemindersOn ? Colors.green : Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                value: areRemindersOn,
+                onChanged: (bool value) {
+                  setState(() {
+                    areRemindersOn = value;
+                  });
+                },
+              ),
             ),
+            const SizedBox(height: 16),
             TextField(
               controller: _reminderTEController,
               decoration: const InputDecoration(
@@ -77,8 +111,6 @@ class _RemindersScreenState extends State<RemindersScreen> {
                   style: TextStyle(fontSize: 17)),
             ),
             const SizedBox(height: 16),
-
-            // List to display all the reminders
             Expanded(
               child: ListView.builder(
                 itemCount: reminders.length,
@@ -123,15 +155,15 @@ class _RemindersScreenState extends State<RemindersScreen> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  reminders.removeAt(index); // Remove the reminder at that index
+                  reminders.removeAt(index);
                 });
-                Navigator.pop(context); // Close the dialog
+                Navigator.pop(context);
               },
               child: const Text('Delete'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog without deleting
+                Navigator.pop(context);
               },
               child: const Text('Cancel'),
             ),
@@ -162,7 +194,6 @@ class _RemindersScreenState extends State<RemindersScreen> {
     selectedDate =
         DateTime(date.year, date.month, date.day, time.hour, time.minute);
 
-    // Now add reminder with selected date and time
     _addReminder(selectedDate);
   }
 

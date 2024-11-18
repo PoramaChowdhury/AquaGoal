@@ -137,10 +137,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _weightController.text = prefs.getString('weight') ?? '';
       _gender = prefs.getString('gender') ?? 'Male';
 
-      goal = prefs.getInt('goal') ?? 8;  // Retrieve as int, default to 8 if not set
+      goal =
+          prefs.getInt('goal') ?? 8; // Retrieve as int, default to 8 if not set
     });
   }
-
 
   _saveSettings() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -157,32 +157,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         flexibleSpace: Container(
-          height: 200,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.indigoAccent.shade100,
-                  Colors.purpleAccent.shade100,
+                  Colors.red.shade200,
+                  Colors.purpleAccent.shade100
                 ],
               ),
               borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.elliptical(25, 25)
-              )
+                  bottom: Radius.elliptical(25, 25))),
+        ),
+        title: const Text(
+          'Settings',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        title: const Text('Settings',style: TextStyle(color: Colors.white),),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -195,7 +197,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               TextFormField(
                 controller: _goalController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Water Intake Goal (glasses)'),
+                decoration: const InputDecoration(
+                    labelText: 'Water Intake Goal (glasses)'),
               ),
               const SizedBox(height: 16),
               DropdownButton<String>(
@@ -206,7 +209,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   });
                 },
                 items: const ['Male', 'Female', 'Other'].map((String gender) {
-                  return DropdownMenuItem<String>(value: gender, child: Text(gender));
+                  return DropdownMenuItem<String>(
+                      value: gender, child: Text(gender));
                 }).toList(),
               ),
               const SizedBox(height: 16),
