@@ -35,9 +35,12 @@ class _MyAppState extends State<MyApp> {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.purple.withOpacity(0.7),
         foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        /*padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),*/
         fixedSize: const Size.fromWidth(double.maxFinite),
-        shape:const  StadiumBorder(),
+        minimumSize: Size(200, 50), // Button size
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10), // Rounded corners
+        ),
         elevation: 2,
       ),
     );
