@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
         foregroundColor: Colors.white,
         /*padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),*/
         fixedSize: const Size.fromWidth(double.maxFinite),
-        minimumSize: Size(200, 50), // Button size
+        minimumSize: const Size(200, 50), // Button size
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10), // Rounded corners
         ),
