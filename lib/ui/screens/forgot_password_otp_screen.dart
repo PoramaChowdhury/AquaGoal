@@ -106,7 +106,7 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
               'Continue',
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
           ),

@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   ElevatedButtonThemeData _elevatedButtonThemeData() {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.purple.withOpacity(0.7),
+        backgroundColor: Colors.lightBlueAccent.shade200,
         foregroundColor: Colors.white,
         /*padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),*/
         fixedSize: const Size.fromWidth(double.maxFinite),
@@ -41,11 +41,10 @@ class _MyAppState extends State<MyApp> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10), // Rounded corners
         ),
-        elevation: 2,
+        elevation: 5.5,
       ),
     );
   }
-
 
   InputDecorationTheme _inputDecorationTheme() {
     return InputDecorationTheme(

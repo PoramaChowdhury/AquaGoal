@@ -89,7 +89,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
               'Continue',
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
           ),

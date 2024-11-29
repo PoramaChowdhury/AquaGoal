@@ -40,14 +40,15 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 82),
+              const SizedBox(height: 60),
               Text(
-                'Unlock Your Journey',
+                "Welcome Back!",
                 style: GoogleFonts.montserrat(
                     textStyle: Theme.of(context).textTheme.headlineMedium,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.w600,
+                ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 245),
               _buildSignInForm(),
               const SizedBox(height: 24),
               Center(
@@ -133,7 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   'Sign In',
                   style: GoogleFonts.italiana(
                     fontWeight: FontWeight.w600,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 )),
           ),

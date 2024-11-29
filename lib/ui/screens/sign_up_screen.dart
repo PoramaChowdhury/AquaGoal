@@ -42,26 +42,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: SingleChildScrollView(
         child: ScreenBackground(
             child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 82),
-              Text(
-                'Create Your Profile',
-                style: GoogleFonts.montserrat(
-                    textStyle: Theme.of(context).textTheme.headlineMedium,
-                    fontWeight: FontWeight.w600),
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 82),
+                  Text(
+                    'Create Your Profile',
+                    style: GoogleFonts.montserrat(
+                        textStyle: Theme.of(context).textTheme.headlineMedium,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 24),
+                  _buildSignUpForm(),
+                  const SizedBox(height: 24),
+                  Center(
+                    child: _buildHaveAccountSection(),
+                  )
+                ],
               ),
-              const SizedBox(height: 24),
-              _buildSignUpForm(),
-              const SizedBox(height: 24),
-              Center(
-                child: _buildHaveAccountSection(),
-              )
-            ],
-          ),
-        )),
+            )),
       ),
     );
   }
@@ -189,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onPressed: () {
                   _onTapNextButton();
                 },
-                child: const Text('Create Account',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),)),
+                child: const Text('Create Account',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),)),
           ),
         ],
       ),
@@ -207,17 +207,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               letterSpacing: 0.5,
             ),
             children: [
-          TextSpan(
-            text: 'Sign In',
-            style: GoogleFonts.italiana(
-              // Apply Google Font to the second part (Sign In)
-              color: AppColors.themeColor,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-            recognizer: TapGestureRecognizer()..onTap = _onTapSignIn,
-          )
-        ]));
+              TextSpan(
+                text: 'Sign In',
+                style: GoogleFonts.italiana(
+                  // Apply Google Font to the second part (Sign In)
+                  color: AppColors.themeColor,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+                recognizer: TapGestureRecognizer()..onTap = _onTapSignIn,
+              )
+            ]));
   }
 
   void _onTapNextButton() {

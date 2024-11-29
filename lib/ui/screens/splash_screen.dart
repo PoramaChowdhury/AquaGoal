@@ -62,6 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }*/
+import 'package:aquagoal/ui/widgets/splash_screen_background.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:aquagoal/ui/utils/assets_path.dart';
@@ -85,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _moveToNextScreen() async {
     await Future.delayed(
       const Duration(
-        seconds: 3,
+        seconds: 5,
       ),
     );
     Navigator.pushReplacement(
@@ -100,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        ScreenBackground(
+        SplashScreenBackground(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

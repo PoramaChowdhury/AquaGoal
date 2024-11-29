@@ -138,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'Continue',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: 18,
                       ),
                     ),
                   ),
