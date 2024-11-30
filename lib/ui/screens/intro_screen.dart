@@ -1,7 +1,9 @@
 import 'package:aquagoal/ui/screens/home_screen.dart';
 import 'package:aquagoal/ui/screens/sign_in_screen.dart';
+import 'package:aquagoal/ui/utils/app_colors.dart';
 import 'package:aquagoal/ui/utils/assets_path.dart';
 import 'package:aquagoal/ui/widgets/screen_background.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,30 +44,32 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 50),
-
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomeScreen(),
-                  ),
-                );
-              },
-              child: Text(
-                'Continue',
+            RichText(
+              text: TextSpan(
+                text: "Ready to make a splash? ",
                 style: GoogleFonts.italiana(
+                  color: Colors.black,
                   fontWeight: FontWeight.w600,
-                  fontSize: 18,
+                  fontSize: 15,
+                  letterSpacing: 0.5,
                 ),
+                children: [
+                  TextSpan(
+                    text: 'Create your account now!',
+                    style: GoogleFonts.italiana(
+                      color: AppColors.themeColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    /*recognizer: TapGestureRecognizer()..onTap = () {
+                      // Navigate to Sign Up screen or perform an action
+                    },*/
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueGrey,
-                //foregroundColor: Colors.white,
-              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,

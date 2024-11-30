@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10), // Rounded corners
         ),
-        elevation: 5.5,
+        elevation: 6,
       ),
     );
   }

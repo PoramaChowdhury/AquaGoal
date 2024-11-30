@@ -62,12 +62,15 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }*/
+import 'package:aquagoal/ui/controllers/auth_controller.dart';
+import 'package:aquagoal/ui/screens/home_screen.dart';
+import 'package:aquagoal/ui/screens/intro_screen.dart';
+import 'package:aquagoal/ui/screens/sign_in_screen.dart';
 import 'package:aquagoal/ui/widgets/splash_screen_background.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:aquagoal/ui/utils/assets_path.dart';
 import 'package:aquagoal/ui/widgets/screen_background.dart';
-import 'package:aquagoal/ui/screens/welcome_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -84,17 +87,24 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _moveToNextScreen() async {
-    await Future.delayed(
-      const Duration(
-        seconds: 5,
-      ),
-    );
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const WelcomeScreen(),
-      ),
-    );
+    await Future.delayed(const Duration(seconds: 5));
+    await AuthController.getAccessToken();
+    if (AuthController.isLoggedIn()) {
+      await AuthController.getUserData();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (ctx) => const WelcomeScreen(),
+        ),
+      );
+    }
   }
 
   @override
