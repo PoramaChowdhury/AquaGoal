@@ -24,21 +24,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _lastNameTEController = TextEditingController();
   final TextEditingController _mobileTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
-  ///not validate
   final TextEditingController _confirmPasswordTEController = TextEditingController();
 
-
   bool _inProgress = false;
-
-  /// added
   bool _isTermsAccepted = false;
 
+  // Define regex for Gmail validation
+  final RegExp _emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      //  resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: ScreenBackground(
             child: Padding(
@@ -79,6 +76,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             validator: (String? value) {
               if (value?.isEmpty ?? true) {
                 return "Enter valid email";
+              }
+              // Use the regex to validate the email
+              if (!_emailRegex.hasMatch(value!)) {
+                return "Please enter a valid Gmail address (e.g., example@gmail.com)";
               }
               return null;
             },
@@ -210,7 +211,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextSpan(
                 text: 'Sign In',
                 style: GoogleFonts.italiana(
-                  // Apply Google Font to the second part (Sign In)
                   color: AppColors.themeColor,
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
@@ -248,7 +248,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (response.isSuccess) {
       _clearTextFields();
-      showSnackBarMessage(context, 'New user create');
+      showSnackBarMessage(context, 'New user created');
     } else {
       showSnackBarMessage(context, response.errorMessage, true);
     }

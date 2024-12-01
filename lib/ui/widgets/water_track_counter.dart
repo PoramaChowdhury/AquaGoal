@@ -5,11 +5,15 @@ class WaterTrackCounter extends StatelessWidget {
   final TextEditingController glassNoTEController;
   final Function(int) onAddWaterTrack;
   final VoidCallback onReset;
+  final int totalGlasses;
+
 
   const WaterTrackCounter({
     required this.glassNoTEController,
     required this.onAddWaterTrack,
     required this.onReset,
+    required this.totalGlasses,
+
   });
 
   @override
@@ -17,10 +21,9 @@ class WaterTrackCounter extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Total Glasses', // Placeholder for total count in HomeScreen
+          'Total Glasses: $totalGlasses', // Placeholder for total count in HomeScreen
           style: GoogleFonts.montserrat(
-              fontSize: 30, fontWeight: FontWeight.w600, color: Colors.teal
-          ),
+              fontSize: 30, fontWeight: FontWeight.w600, color: Colors.teal),
         ),
         const SizedBox(height: 16),
         Row(
@@ -44,7 +47,8 @@ class WaterTrackCounter extends StatelessWidget {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  final int noOfGlasses = int.tryParse(glassNoTEController.text) ?? 1;
+                  final int noOfGlasses =
+                      int.tryParse(glassNoTEController.text) ?? 1;
                   onAddWaterTrack(noOfGlasses);
                 },
                 child: const Text(

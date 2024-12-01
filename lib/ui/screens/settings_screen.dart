@@ -263,7 +263,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _weight = prefs.getInt('weight') ?? 60;
       _height = prefs.getInt('height') ?? 170;
       _gender = prefs.getString('gender') ?? 'Male';
-      _goalController.text = prefs.getString('goal') ?? '8'; // Default goal: 8
+      _goalController.text = (prefs.getInt('goal') ?? 8).toString();  // Default goal: 8
       _wakeUpTime = TimeOfDay(
         hour: prefs.getInt('wakeUpHour') ?? 7,
         minute: prefs.getInt('wakeUpMinute') ?? 0,
@@ -281,7 +281,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await prefs.setInt('weight', _weight);
     await prefs.setInt('height', _height);
     await prefs.setString('gender', _gender);
-    await prefs.setString('goal', _goalController.text); // Save goal
+    await prefs.setInt('goal', int.parse(_goalController.text)); // Save goal
     await prefs.setInt('wakeUpHour', _wakeUpTime.hour);
     await prefs.setInt('wakeUpMinute', _wakeUpTime.minute);
     await prefs.setInt('sleepHour', _sleepTime.hour);

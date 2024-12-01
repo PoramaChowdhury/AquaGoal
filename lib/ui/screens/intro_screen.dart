@@ -28,11 +28,11 @@ class WelcomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Image (Optional, you can uncomment it if you have the image)
-            Image.asset(
-              AssetsPath.welcome_image,
-              width: 250,
-              height: 250,
-            ),
+            // Image.asset(
+            //   AssetsPath.welcome_image,
+            //   width: 250,
+            //   height: 250,
+            // ),
             const SizedBox(height: 20),
 
             Text(

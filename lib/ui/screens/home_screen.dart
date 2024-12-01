@@ -26,10 +26,18 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _loadGoal();
+    _loadWaterTracks();
   }
+
   _loadGoal() async {
-    await _goalManager.loadGoal();
-    setState(() {});
+    await _goalManager.loadGoal(); // Load goal from SharedPreferences
+    setState(() {}); // Refresh UI
+  }
+
+  _loadWaterTracks() async {
+    await _waterTrackController
+        .loadWaterTracks(); // Load from SharedPreferences
+    setState(() {}); // Refresh UI to reflect loaded water tracks
   }
 
   @override
@@ -44,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               glassNoTEController: _glassNoTEController,
               onAddWaterTrack: _onAddWaterTrack,
               onReset: _onResetWaterTrack,
+              totalGlasses: _waterTrackController.getTotalGlassCount(),
             ),
             const SizedBox(height: 24),
             WaterProgressBar(
@@ -125,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 }
+
 
 
 
